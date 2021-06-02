@@ -4,9 +4,19 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+
+function Welcome(props){
+  return(
+    <h1>Welcome To Tic-Tac-Toe</h1>
+  );
+}
+
 ReactDOM.render(
   <React.StrictMode>
+  <center>
+    <Welcome/>
     <App />
+    </center>
   </React.StrictMode>,
   document.getElementById('root')
 );
