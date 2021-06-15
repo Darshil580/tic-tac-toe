@@ -42,6 +42,7 @@ code {
   background-color: #e7e7e7;
 }
 
+
 .button {
   background-color: #4caf50; /* Green */
   border: none;
@@ -88,6 +89,10 @@ code {
 
 .green {
   background-color: green;
+}
+
+.green:hover{
+  background-color: lightgreen;
 }
 
 
