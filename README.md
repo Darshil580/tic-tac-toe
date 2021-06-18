@@ -2,6 +2,21 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Purpose of this Game
+
+The reason i created this game is to simple learn how to create react application and understand it's concepts.
+
+## Game Description
+
+It is simple tic-tac-toe or XO game, call whatever you like.
+first move - X if you want O as first move just press reset and vice-versa.
+
+### TODO List
+* Add score tab
+* Modify the UX by changing the square button with the canvas for drawing. (Optional)
+* Optimize the code
+* You can add computer AI as second opponent
+
 ## Available Scripts
 
 In the project directory, you can run:
