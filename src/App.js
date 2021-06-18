@@ -60,13 +60,12 @@ function Winner(props) {
       <div>
       <h1>{props.value ? props.value + " is the Winner" : null}</h1>
       <div className="red-center">
-        <img id="left" src={Left} height={60} width={60}/>
+        <img id="left" src={Left} height={60} width={60} onClick={()=>props.onClick[0](2)}/>
         <button  className="button button4" onClick={() => props.reset()}>Reset</button>
-        <img id="right" src={Right} height={60} width={60}/>
+        <img id="right" src={Right} height={60} width={60} onClick={()=>props.onClick[1](2)}/>
       </div>
     </div>
   );
-
 }
 
 //Deciding the winner based on the pattenr and returning the array which contains the winner and its winning patten.
@@ -139,10 +138,10 @@ componentWillUnmount(){
 //handling arrowkey press wheather left or right
 handlePress(e){
   if(e.key=='ArrowLeft'){
-    this.handleLeft();
+    this.handleLeft(1);
   }
   else if(e.key=='ArrowRight'){
-    this.handleRight();
+    this.handleRight(1);
   }
 }
 
@@ -154,9 +153,11 @@ handleRelease(){
   right.src = Right;
 }
 
-handleRight(){
+handleRight(i){
 
-  if(this.state.point){    
+  console.log(this.state.point+" ="+ this.state.count);
+
+  if(this.state.point && i==1){     //i == 1 means input is coming form keydown not the onclick but why different ? -->Async setstate update 
     if(this.state.point!=this.state.count){
 
       //for changing the image of arrow of the press.
@@ -168,13 +169,33 @@ handleRight(){
       this.setState({history_square:this.state.history[this.state.count]});
     }
   }
+
+  if(this.state.point && i==2){     //i == 2 means input is coming form  onclick not from keydown of keyboard but why different ? -->Async setstate update &touch screen phone don't have keydown
+    if(this.state.point!=this.state.count){
+      console.log("R2");
+      //for changing the image of arrow of the press.
+      let right = document.getElementById('right');
+      right.src = Rightpress;
+
+      //increasing count for getting the next move that happened  and setting the current history square to reflect the changes on desktop
+      this.setState({count:this.state.count+1});
+      this.setState({history_square:this.state.history[this.state.count+1]});
+
+      setTimeout(() => { right.src = Right; }, 200);
+      
+    }
+  }
+    console.log(this.state.point+" =" +this.state.count);
+  
 }
 
-handleLeft(){
+handleLeft(i){
   
-  if(this.state.point){
-    if(this.state.count!=0){
+  console.log(this.state.point+" ="+ this.state.count);
 
+  if(this.state.point && i==1){ //i == 1 means input is coming form keydown not the onclick
+    if(this.state.count!=0){
+      console.log("L2");
       //for changing the image of arrow of the press.
       let left = document.getElementById('left');
       left.src = Leftpress;
@@ -184,6 +205,22 @@ handleLeft(){
       this.setState({history_square:this.state.history[this.state.count]});
     }
   }
+
+    if(this.state.point && i==2){ //i == 2 means input is coming form  onclick not from keydown of keyboard but why different ? -->Async setstate update &touch screen phone don't have keydown
+      if(this.state.count!=1){
+  
+        //for changing the image of arrow of the press.
+        let left = document.getElementById('left');
+        left.src = Leftpress;
+  
+        //decreasing the count for getting the previous move that happened  and setting the current history square to reflect the changes on desktop
+        this.setState({count:this.state.count==1?1:this.state.count-1});
+        this.setState({history_square:this.state.history[this.state.count-1]});
+
+        setTimeout(() => {left.src=Left;}, 200);
+      }
+    }
+    console.log(this.state.point+" ="+ this.state.count);
 }
 
 //for reseting the whole game and also changing the turn between X and O..................
@@ -254,12 +291,9 @@ handleLeft(){
             <Square value={this.state.winner?this.state.history_square[9]:this.state.squares[9]} winner={[this.state.winner_index, 9,count,point]} click={() => this.click(9)} />
           </div>
         </div>
-        <Winner value={this.state.winner} reset={() => this.reset()} />
+        <Winner value={this.state.winner} reset={() => this.reset()}  onClick={[this.handleLeft,this.handleRight]}/>
       </div>
     );
   };
-
-
-
 }
 export default BoxGame;
