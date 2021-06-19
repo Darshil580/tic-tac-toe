@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './index.css';
+// eslint-disable-next-line
 import logo from './logo.svg';
 
 //importing images from images folder which is inside src because ModuleScopePlugin is has not been ejected....
@@ -29,7 +30,7 @@ function Square(props) {
   //checking if winner_index exist or not  
   if (winner[0]) {
     //checking the square's index number  with the winner_index number                           count and point are compare for checking whether it is last move or not
-    if ((winner[0][0] == winner[1] || winner[0][1] == winner[1] || winner[0][2] == winner[1]) && (winner[2]==winner[3]&& winner[2]!=0) ) {
+    if ((winner[0][0] === winner[1] || winner[0][1] === winner[1] || winner[0][2] === winner[1]) && (winner[2]===winner[3]&& winner[2]!==0) ) {
       return (
         <button className="square card green" onClick={() => props.click()}>
           {props.value ? props.value : '-'}
@@ -60,9 +61,9 @@ function Winner(props) {
       <div>
       <h1>{props.value ? props.value + " is the Winner" : null}</h1>
       <div className="red-center">
-        <img id="left" src={Left} height={60} width={60} onClick={()=>props.onClick[0](2)}/>
+        <img alt="left" id="left" src={Left} height={60} width={60} onClick={()=>props.onClick[0](2)}/>
         <button  className="button button4" onClick={() => props.reset()}>Reset</button>
-        <img id="right" src={Right} height={60} width={60} onClick={()=>props.onClick[1](2)}/>
+        <img alt="right" id="right" src={Right} height={60} width={60} onClick={()=>props.onClick[1](2)}/>
       </div>
     </div>
   );
@@ -108,7 +109,7 @@ class BoxGame extends React.Component {
     this.state = {
       history:[[]],
       winner: null,
-      squares: Array(),
+      squares: Array(9).fill(null),
       Toggle: true,
       count:0,
       point:0,
@@ -137,10 +138,10 @@ componentWillUnmount(){
 
 //handling arrowkey press wheather left or right
 handlePress(e){
-  if(e.key=='ArrowLeft'){
+  if(e.key==='ArrowLeft'){
     this.handleLeft(1);
   }
-  else if(e.key=='ArrowRight'){
+  else if(e.key==='ArrowRight'){
     this.handleRight(1);
   }
 }
@@ -155,10 +156,10 @@ handleRelease(){
 
 handleRight(i){
 
-  console.log(this.state.point+" ="+ this.state.count);
+  // console.log(this.state.point+" ="+ this.state.count);
 
-  if(this.state.point && i==1){     //i == 1 means input is coming form keydown not the onclick but why different ? -->Async setstate update 
-    if(this.state.point!=this.state.count){
+  if(this.state.point && i===1){     //i === 1 means input is coming form keydown not the onclick but why different ? -->Async setstate update 
+    if(this.state.point!==this.state.count){
 
       //for changing the image of arrow of the press.
       let right = document.getElementById('right');
@@ -170,8 +171,8 @@ handleRight(i){
     }
   }
 
-  if(this.state.point && i==2){     //i == 2 means input is coming form  onclick not from keydown of keyboard but why different ? -->Async setstate update &touch screen phone don't have keydown
-    if(this.state.point!=this.state.count){
+  if(this.state.point && i===2){     //i === 2 means input is coming form  onclick not from keydown of keyboard but why different ? -->Async setstate update &touch screen phone don't have keydown
+    if(this.state.point!==this.state.count){
       console.log("R2");
       //for changing the image of arrow of the press.
       let right = document.getElementById('right');
@@ -185,42 +186,42 @@ handleRight(i){
       
     }
   }
-    console.log(this.state.point+" =" +this.state.count);
+    // console.log(this.state.point+" =" +this.state.count);
   
 }
 
 handleLeft(i){
   
-  console.log(this.state.point+" ="+ this.state.count);
+  // console.log(this.state.point+" ="+ this.state.count);
 
-  if(this.state.point && i==1){ //i == 1 means input is coming form keydown not the onclick
-    if(this.state.count!=0){
+  if(this.state.point && i===1){ //i === 1 means input is coming form keydown not the onclick
+    if(this.state.count!==0){
       console.log("L2");
       //for changing the image of arrow of the press.
       let left = document.getElementById('left');
       left.src = Leftpress;
 
       //decreasing the count for getting the previous move that happened  and setting the current history square to reflect the changes on desktop
-      this.setState({count:this.state.count==1?1:this.state.count-1});
+      this.setState({count:this.state.count===1?1:this.state.count-1});
       this.setState({history_square:this.state.history[this.state.count]});
     }
   }
 
-    if(this.state.point && i==2){ //i == 2 means input is coming form  onclick not from keydown of keyboard but why different ? -->Async setstate update &touch screen phone don't have keydown
-      if(this.state.count!=1){
+    if(this.state.point && i===2){ //i == 2 means input is coming form  onclick not from keydown of keyboard but why different ? -->Async setstate update &touch screen phone don't have keydown
+      if(this.state.count!==1){
   
         //for changing the image of arrow of the press.
         let left = document.getElementById('left');
         left.src = Leftpress;
   
         //decreasing the count for getting the previous move that happened  and setting the current history square to reflect the changes on desktop
-        this.setState({count:this.state.count==1?1:this.state.count-1});
+        this.setState({count:this.state.count===1?1:this.state.count-1});
         this.setState({history_square:this.state.history[this.state.count-1]});
 
         setTimeout(() => {left.src=Left;}, 200);
       }
     }
-    console.log(this.state.point+" ="+ this.state.count);
+    // console.log(this.state.point+" ="+ this.state.count);
 }
 
 //for reseting the whole game and also changing the turn between X and O..................
@@ -236,20 +237,20 @@ handleLeft(i){
     let history= this.state.history;
    
     //if the winner exist than do not change the value of any square and the turn
-    if ((square[i] == 'X' || square[i] == 'O') && this.state.winner) {
+    if ((square[i] === 'X' || square[i] === 'O') && this.state.winner) {
       this.setState({squares:square,Toggle: this.state.Toggle });
       return;
     }
 
     //checking if its X's  turn and if winner does not exist if yes then go inside manage the variable and state 
-    else if (this.state.Toggle && !this.state.winner && square[i] != 'O') {
+    else if (this.state.Toggle && !this.state.winner && square[i] !== 'O') {
       square[i] = 'X';
       history.push(square.slice());
       this.setState({ squares: square, Toggle: !this.state.Toggle ,history: history,count:count+1});
     }
 
     //checking if its Y's turn and if winner does not exist if yes then go inside manage the variable and state
-    else if (!this.state.Toggle && !this.state.winner && square[i] != 'X') {
+    else if (!this.state.Toggle && !this.state.winner && square[i] !== 'X') {
       square[i] = 'O';
       history.push(square.slice());
       this.setState({ squares: square, Toggle: !this.state.Toggle,history: history,count:count+1});
