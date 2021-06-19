@@ -11,6 +11,15 @@ The reason i created this game is to simple learn how to create react applicatio
 It is simple tic-tac-toe or XO game, call whatever you like.
 first move - X if you want O as first move just press reset and vice-versa.
 
+### I have also added folder "dist" if you want the app as extension, follow below steps:
+1 Open Chrome Browser.
+2.Go to the settings.
+3.Select Extension.
+4.Click on Load unpacked.
+5.Select dist folder.
+6.Done.
+7.check the extension panel.
+
 ### TODO List
 * Add score tab
 * Modify the UX by changing the square button with the canvas for drawing. (Optional)
